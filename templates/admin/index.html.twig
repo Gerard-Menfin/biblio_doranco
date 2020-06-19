@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>Rôles</th>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        {{ role }}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="border: 2px solid; padding: 5px">
+    <h2>Formulaire </h2>
+    {# {{ form(formulaire) }} #}
+
+    {{ form_start(formulaire) }}
+        {{ form_row(formulaire.email) }}
+        {{ form_row(formulaire.password) }}
+        {{ form_row(formulaire.roles) }}
+        <button class="btn btn-primary">Enregistrer</button>
+    {{ form_end(formulaire) }}
+</div>
+
+
+{% endblock %}

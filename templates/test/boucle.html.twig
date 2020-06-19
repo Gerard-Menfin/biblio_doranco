@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Boucle Twig{% endblock %}
+
+{# La seule boucle qui existe dans twig : for #}
+{% block body %}
+    <ul>
+    {# équivalent au FOREACH de php #}
+    {% for ligne in tableau %}
+        <li>{{ ligne }}</li>
+    {% endfor %}
+    </ul>
+
+    {# équivalent au FOR de php #}
+    {# la concaténation : ~ #}
+    {% for i in 0..10 %}
+        <p>{{ "i vaut " ~ i  }}</p>
+    {% endfor %}
+
+    <p>
+        {% for lettre in "a".."z" %}
+            {{ lettre }}
+        {% endfor %}
+    </p>
+
+{% endblock %}

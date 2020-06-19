@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Emprunt n°{{ emprunt.id}}</h1>
+    <div>
+        <div>
+            <ul>
+                <li>Emprunté le : {{ emprunt.dateEmprunt|date("d/m/Y") }}</li>
+                <li>Rendu le : {{ emprunt.dateRetour is empty ? "-" : emprunt.dateRetour|date("d/m/Y") }}</li>
+            </ul>
+        </div>
+        
+        <div>
+            <h2>Emprunté par : </h2>
+            <ul>
+                <li>Prénom : {{ emprunt.abonne.prenom }}</li>
+                <li>Inscrit depuis : {{ emprunt.abonne.dateInscription }}</li>
+            </ul>
+        </div>
+
+        <div>
+            <h2>Livre emprunté </h2>
+            <ul>
+                <li>Titre : {{ emprunt.livre.titre }}</li>
+                <li>Auteur : {{ emprunt.livre.auteur }}</li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

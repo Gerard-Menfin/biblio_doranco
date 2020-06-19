@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if nombre > 10 %}
+        
+        <p>{{ nombre }} est supérieur à 10</p>
+
+    {% elseif nombre < 10 %}
+
+        <p>{{ nombre }} est inférieur à 10</p>
+        
+    {% else %}
+
+        <p>{{ nombre }} est égal à 10</p>
+        
+    {% endif %}
+{% endblock %}

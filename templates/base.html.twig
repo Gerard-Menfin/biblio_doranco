@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            nav{
+                background-color: lightgrey;
+                width: 200px;
+                float: left;
+            }
+            .body{
+                display: inline-block;
+                margin-left: 20px;
+            }
+        </style>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{ path("home") }}" >Accueil</a>
+                </li>
+
+                {# la fonction is_granted permet aussi de vérifier qu'un utilisateur est connecté #}
+                {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                    <li>
+                        <a href="{{ path("app_logout") }}" >Déconnexion</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path("app_login") }}" >Connexion</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("app_register") }}" >Inscription</a>
+                    </li>
+
+                {% endif %}
+
+                {# la fonction is_granted permet de vérifier le rôle de l'utilisateur connecté #}
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li>
+                        <a href="{{ path("admin") }}" >Utilisateurs</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("liste_abonnes") }}" >Liste Abonnés</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("liste_livres") }}" >Liste Livres</a>
+                    </li>
+                    <li>
+                        <a href="{{ path("liste_emprunts") }}" >Liste Emprunts</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="body">
+        {% block body %}
+            <h1>{{ titre }}</h1>
+            <h2>Voici la page d'accueil</h2>
+            <p>C'est le block body de base.html.twig qui est affiché</p>
+        {% endblock %}
+
+        {% block second %}{% endblock %}
+        </div>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
+
+
+{# 
+    {%  %}  : permet d'écrire des structures (if, for, block, ...)
+    {{  }}  : permet de faire un 'echo' : <?= ?>
+
+    Les variables twig s'écrivent sans $ au début (comme en javascript) 
+
+    Attention : vous ne pouvez pas utiliser de balises php dans un fichier twig
+
+    Pour accéder aux propriétés d'un objet, on utlise le point .
+        ex: afficher le nom d'un objet personne
+             {{ personne.nom }}
+    
+    Pour accéder à un élément d'un tableau par son indice, on utilise aussi le .
+        ex: $tableau = [ "nom" => "Cérien", "prenom" => "Jean" ]
+            {{ tableau.nom }}
+ #}

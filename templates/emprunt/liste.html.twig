@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<a href="{{ path("ajouter_emprunt") }}">Ajouter</a>
+
+<table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Abonné</th>
+                <th>Livre</th>
+                <th>Emprunté le</th>
+                <th>Rendu le</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emprunt in liste_emprunts %}
+                <tr>
+                    <td>{{ emprunt.abonne.prenom }}</td>
+                    <td>{{ emprunt.livre.titre ~ " - " ~ emprunt.livre.auteur  }}</td>
+                    <td>{{ emprunt.dateEmprunt|date("d/m/Y") }}</td>
+                    <td>{{ emprunt.dateRetour is empty ? "" :emprunt.dateRetour|date("d/m/Y") }}</td>
+                    <td>
+                       <a href="{{ path("fiche_emprunt", { id: emprunt.id }) }}">fiche</a>
+                       <a href="{{ path("modifier_emprunt", { id: emprunt.id }) }}">modifier</a>
+                       <a href="{{ path("supprimer_emprunt", { id: emprunt.id }) }}" 
+                          onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet emprunt ?');">supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfooter></tfooter>
+</table>
+    
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th colspan=5>
+                Emprunt en cours : {{ liste_emprunts_non_rendus|length }}
+            </th>
+        </tr>
+        <tr>
+            <th>Abonné</th>
+            <th>Livre</th>
+            <th>Emprunté le</th>
+            <th>Rendu le</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emprunt in liste_emprunts_non_rendus %}
+            <tr>
+                <td>{{ emprunt.abonne.prenom }}</td>
+                <td>{{ emprunt.livre.titre ~ " - " ~ emprunt.livre.auteur  }}</td>
+                <td>{{ emprunt.dateEmprunt|date("d/m/Y") }}</td>
+                <td>{{ emprunt.dateRetour is empty ? "" :emprunt.dateRetour|date("d/m/Y") }}</td>
+                <td>
+                    <a href="{{ path("fiche_emprunt", { id: emprunt.id }) }}">fiche</a>
+                    <a href="{{ path("modifier_emprunt", { id: emprunt.id }) }}">modifier</a>
+                    <a href="{{ path("supprimer_emprunt", { id: emprunt.id }) }}" 
+                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet emprunt ?');">supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter></tfooter>
+</table>
+    
+            
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        table, th, td{
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+        thead{
+            background-color: black;
+            color: white;
+        }
+    </style>
+{% endblock %}

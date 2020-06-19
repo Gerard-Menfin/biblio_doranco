@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Fiche Abonné</h1>
+    <ul>
+        <li>Prénom : {{ abonne.prenom }}</li>
+        <li>Date d'inscription : {{ abonne.dateInscription|date("d/m/Y") }}</li>
+    </ul>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Livre</th>
+                    <th>Emprunté le</th>
+                    <th>Rendu le</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emprunt in abonne.emprunts %}
+                    <tr>
+                        <td>{{ emprunt.livre.titre ~ " - " ~ emprunt.livre.auteur  }}</td>
+                        <td>{{ emprunt.dateEmprunt|date("d/m/Y") }}</td>
+                        <td>{{ emprunt.dateRetour is empty ? "" :emprunt.dateRetour|date("d/m/Y") }}</td>
+                        <td>
+                            <a href="{{ path("fiche_emprunt", { id: emprunt.id }) }}">fiche</a>
+                            <a href="{{ path("modifier_emprunt", { id: emprunt.id }) }}">modifier</a>
+                            <a href="{{ path("supprimer_emprunt", { id: emprunt.id }) }}" 
+                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet emprunt ?');">supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr></tr>
+            </tbody>
+            <tfooter></tfooter>
+        </table>
+    </div>
+
+    <a href="{{ path("liste_abonnes") }}">Retour liste</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <form method="POST">
+        <div>
+            <label>Auteur</label>
+            {% if livre is defined %}
+                <input type="text" name="auteur" value="{{ livre.auteur }}">
+            {% else %}
+                <input type="text" name="auteur">
+            {% endif %}
+        </div>
+        <div>
+            <label>Titre</label>
+            <input type="text" name="titre" value="{{ livre is defined ? livre.titre : "" }}">
+        </div>
+
+        <button>Enregistrer</button>
+    </form>
+{% endblock %}

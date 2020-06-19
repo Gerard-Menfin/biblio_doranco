@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<a href="{{ path("ajouter_abonne")}}">Ajouter</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Prénom</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for abonne in liste_abonnes %}
+            <tr>
+                <td>{{ abonne.id }}</td>
+                <td>{{ abonne.prenom}}</td>
+                <td>{{ abonne.dateInscription|date("d/m/Y") }}</td>
+                <td>
+                   <a href="{{ path("fiche_abonne", { id: abonne.id }) }}">fiche</a>
+                   <a href="{{ path("modifier_abonne", { id: abonne.id }) }}">modifier</a>
+                   <a href="{{ path("supprimer_abonne", { id: abonne.id }) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet abonné ?');">supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        <tr></tr>
+    </tbody>
+    <tfooter></tfooter>
+</table>  
+{% endblock %}
